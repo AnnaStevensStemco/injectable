@@ -16,17 +16,11 @@ class GetItHelper {
       [String? environment, EnvironmentFilter? environmentFilter])
       : assert(environmentFilter == null || environment == null) {
     // register current EnvironmentsFilter as lazy singleton
-    if (!getIt.isRegistered<EnvironmentFilter>(
-        instanceName: kEnvironmentsFilterName)) {
-      _environmentFilter = environmentFilter ?? NoEnvOrContains(environment);
-      getIt.registerLazySingleton<EnvironmentFilter>(
-        () => _environmentFilter,
-        instanceName: kEnvironmentsFilterName,
-      );
-    } else {
-      _environmentFilter =
-          getIt<EnvironmentFilter>(instanceName: kEnvironmentsFilterName);
-    }
+    _environmentFilter = environmentFilter ?? NoEnvOrContains(environment);
+    getIt.registerLazySingleton<EnvironmentFilter>(
+      () => _environmentFilter,
+      instanceName: kEnvironmentsFilterName,
+    );
 
     // register current Environments as lazy singleton
     if (!getIt.isRegistered<Set<String>>(instanceName: kEnvironmentsName)) {
